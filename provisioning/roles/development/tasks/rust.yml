@@ -1,16 +1,7 @@
 ---
-- name: Rust get
+- name: Rust install via rustup.sh
   tags: dev, rust
-  git:
-    repo: https://github.com/rust-lang/rust.git
-    dest: ~/downloads/rust
-
-- name: Rust compile
-  tags: dev, rust
-  become: true
   shell: |
-    ./configure
-    make install
+    curl -sf -L https://static.rust-lang.org/rustup.sh | sh
   args: 
     executable: /bin/bash
-    chdir: /home/{{ ansible_user }}/downloads/rust
