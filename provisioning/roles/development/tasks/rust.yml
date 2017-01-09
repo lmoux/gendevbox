@@ -4,14 +4,13 @@
   git:
     repo: https://github.com/rust-lang/rust.git
     dest: ~/downloads/rust
-    force: yes
 
 - name: Rust compile
   tags: dev, rust
+  become: true
   shell: |
-    pushd ~/downloads/rust
     ./configure
-    popd
-    sudo make -C ~/downloads/rust/ install
+    make install
   args: 
     executable: /bin/bash
+    chdir: /home/{{ ansible_user }}/downloads/rust
