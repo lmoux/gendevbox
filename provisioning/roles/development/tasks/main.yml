@@ -1,0 +1,31 @@
+---
+- name: General building
+  tags: dev
+  become: true
+  apt: pkg={{ item }} state=present
+  with_items:
+    - git
+    - jq # Very nice for json viewing/searching
+    - make
+    - binutils
+    - autoconf
+    - automake
+    - build-essential
+    - devscripts
+    - python-software-properties
+    - pkg-config
+    - nfs-common
+    - libtool
+    - libxml2
+    - libxml2-dev
+    #- libxslt
+    #- libxslt-dev
+    - expect-dev
+
+- include: ./python.yml
+- include: ./node.yml
+- include: ./erlang.yml
+- include: ./java.yml
+- include: ./vscode.yml
+- include: ./cmake.yml
+- include: ../../common/tasks/editors.yml

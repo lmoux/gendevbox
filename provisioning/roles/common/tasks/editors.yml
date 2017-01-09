@@ -1,0 +1,25 @@
+---
+- name: Editors
+  become: true
+  tags: common, editors
+  apt: pkg={{ item }} state=present
+  with_items:
+    - vim-gtk
+    - emacs
+
+- name: Install Vundle
+  tags: common, editors
+  git: 
+      repo: https://github.com/VundleVim/Vundle.vim.git
+      dest: ~/.vim/bundle/Vundle.vim
+
+- name: Copy vimrc
+  tags: common, editors
+  template:
+    src: ../../common/templates/vimrc
+    dest: ~/.vimrc
+
+- name: Install Vundle plugins
+  shell: vim +PluginInstall +qall
+  tags: common, editors
+

@@ -1,0 +1,27 @@
+---
+- name: Update apts cache
+  become: true
+  apt: update_cache=yes
+  tags: common
+
+- name: Downloads directory
+  file:
+    path: downloads
+    state: directory
+
+- name: General command line tools
+  become: true
+  tags: common
+  apt: pkg={{ item }} state=present
+  with_items:
+    - curl
+    - wget
+    - git # Strictly speaking for development, but we use it all over
+    - gawk
+
+- include: ./tmux.yml
+- include: ./zsh.yml
+- include: ./x11.yml
+#- include: ./editors.yml
+- include: ./firefox.yml # This is basically for Debian Jessie
+- include: ./math.yml

@@ -1,0 +1,22 @@
+---
+- name: Firefox Mozilla repo source verify
+  tags: common, firefox
+  become: true
+  when: ansible_distribution == 'Debian'
+  ignore_errors: yes
+  lineinfile:
+    dest: /etc/apt/sources.list.d/debian-mozilla.list
+    line: deb http://ftp.de.debian.org/debian jessie-backports main
+
+- name: Java install
+  become: true
+  tags: dev, java
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - openjdk-8-jdk
+    - openjdk-7-jdk
+    - tomcat8
+    - tomcat8-docs
+    - tomcat8-admin
+    - tomcat8-examples
+    - tomcat8-user

@@ -1,0 +1,41 @@
+---
+- name: Zsh installation
+  tags: common, zsh
+  become: true
+  apt: pkg=zsh state=present
+
+- name: Zsh remove standard config
+  tags: common, zsh
+  file: path=~/.zshrc state=absent
+
+- name: Zsh install of "Oh my zsh!"
+  tags: common, zsh
+  git: 
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
+
+- stat: path=~/.oh-my-zsh
+  tags: common, zsh
+  register: ohmyzshfolder
+
+- name: Zsh copy config file
+  tags: common, zsh
+  copy: 
+    remote_src: True
+    src: ~/.oh-my-zsh/templates/zshrc.zsh-template
+    dest: ~/.zshrc
+  when: ohmyzshfolder.stat.exists
+
+- name: Zsh set as default shell
+  become: true
+  tags: common, zsh
+  user: name={{ansible_user_id}} shell=/bin/zsh
+  when: ohmyzshfolder.stat.exists
+  
+- name: Zsh set theme
+  tags: common, zsh
+  lineinfile:
+    dest: ~/.zshrc
+    regexp: '^ZSH_THEME'
+    line: 'ZSH_THEME="candy"'
+  when: ohmyzshfolder.stat.exists

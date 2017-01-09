@@ -1,0 +1,11 @@
+---
+- name: Tmux install
+  become: true
+  tags: common, tmux
+  apt: pkg=tmux state=present
+
+- name: Tmux configuration file
+  tags: common, tmux
+  template:
+    src: templates/tmux.conf
+    dest: ~/.tmux.conf

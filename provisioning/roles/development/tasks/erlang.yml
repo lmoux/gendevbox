@@ -1,0 +1,19 @@
+---
+- name: Erlang & Elixir get repo
+  tags: dev, erlang
+  get_url: 
+    url: https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+    dest: downloads/erlang-solutionas_1.0_all.deb
+
+- name: Erlang & Elixir install repo
+  tags: dev, erlang
+  become: true
+  shell: dpkg -i downloads/erlang-solutionas_1.0_all.deb
+
+- name: Erlang & Elixir install proper
+  tags: dev, erlang
+  become: true
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - esl-erlang
+    - elixir

@@ -1,0 +1,17 @@
+---
+- name: VS Code get
+  tags: dev, vscode
+  get_url: 
+    url: http://go.microsoft.com/fwlink/?LinkID=760868
+    dest: downloads/vs_code.deb
+
+- name: VS Code install
+  tags: dev, vscode
+  become: true
+  shell: dpkg -i downloads/vs_code.deb
+
+- name: VS Code install finalization
+  tags: dev, vscode
+  become: true
+  shell: apt-get install -f
+

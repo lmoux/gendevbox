@@ -1,0 +1,7 @@
+---
+- name: Ruby install
+  tags: dev, ruby
+  become: true
+  apt: pkg={{ item }} state=present
+  with_items:
+    - ruby

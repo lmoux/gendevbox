@@ -1,0 +1,10 @@
+---
+- name: X11 environments and apps installation
+  become: true
+  tags: common, x11
+  apt: pkg={{ item }} state=present
+  with_items:
+    - i3
+    - xinit
+    - x11-apps
+    - xvfb

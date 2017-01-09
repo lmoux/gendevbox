@@ -1,0 +1,16 @@
+---
+- name: Math
+  tags: common, math
+  become: true
+  apt: pkg={{ item }} state=present
+  with_items:
+    - octave
+    - octave-financial
+    - gnuplot
+    - octave-linear-algebra
+    - octave-statistics
+    - octave-symbolic
+    - octave-general
+    - octave-mpi
+    - r-base
+

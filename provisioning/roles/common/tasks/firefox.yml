@@ -1,0 +1,45 @@
+---
+- name: Firefox Mozilla repo source
+  tags: common, firefox
+  become: true
+  when: ansible_distribution == 'Debian'
+  ignore_errors: yes
+  file:
+    state: touch
+    path: /etc/apt/sources.list.d/debian-mozilla.list
+
+- name: Firefox Mozilla repo source verify
+  tags: common, firefox
+  become: true
+  when: ansible_distribution == 'Debian'
+  ignore_errors: yes
+  lineinfile:
+    dest: /etc/apt/sources.list.d/debian-mozilla.list
+    line: deb http://mozilla.debian.net/ jessie-backports firefox-release
+
+- name: Firefox Mozilla repo key get
+  tags: common, firefox
+  when: ansible_distribution == 'Debian'
+  ignore_errors: yes
+  get_url: 
+    url: http://mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb
+    dest: ~/downloads/.
+
+- name: Firefox Mozilla repo key install
+  tags: common, firefox
+  become: true
+  when: ansible_distribution == 'Debian'
+  ignore_errors: yes
+  shell: | 
+    dpkg -i downloads/pkg-mozilla-archive-keyring_1.1_all.deb
+    apt-get update
+
+- name: Firefox install via jessie backports
+  tags: common, firefox
+  become: true
+  when: ansible_distribution == 'Debian'
+  ignore_errors: yes
+  apt:
+    pkg: firefox
+    state: present
+    default_release: jessie-backports

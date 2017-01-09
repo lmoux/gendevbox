@@ -1,0 +1,62 @@
+- name: Node repo script copy
+  tags: dev, javascript
+  template: 
+    src: templates/node_setup_6.x
+    dest: downloads/node_setup_6.x
+
+- name: Node repo script run
+  tags: dev, javascript
+  become: true
+  shell: bash downloads/node_setup_6.x
+
+- name: Update apt-cache
+  tags: dev, javascript
+  become: true
+  apt: update_cache=true
+
+- name: Install node
+  tags: dev, javascript
+  become: true
+  apt: pkg=nodejs state=present
+
+- name: Install node packages
+  tags: dev, javascript, nodepacks
+  become: true
+  npm: name={{ item }} global=yes
+  with_items:
+    - yo
+    - gulp
+    - grunt
+    - bower
+    - babel-cli
+    - react
+    - react-dom
+    - babel-preset-react
+    - babel-preset-es2015
+    - typescript
+    - coffee-script
+    - typings
+
+- name: Clone Angular2 quickstart
+  tags: dev, javascript, nodepacks
+  git:
+    repo: https://github.com/angular/quickstart.git
+    dest: /vagrant/projects/angular_quickstart
+
+- stat: path=~/.vimrc
+  tags: dev, javascript
+  register: vimrcfile
+
+- name: Vim include Javascript plugins
+  tags: dev, javascript
+  when: vimrcfile.stat.exists
+  blockinfile:
+    dest: ~/.vimrc
+    marker: '" ------ Plugins go here ------'
+    insertafter: '"   --- Javascript ---   '   
+    content: |
+      Plugin 'pangloss/vim-javascript'
+      Plugin 'mxw/vim-jsx'
+      Plugin 'leafgarland/typescript-vim'
+      Plugin 'Quramy/vim-js-pretty-template'
+

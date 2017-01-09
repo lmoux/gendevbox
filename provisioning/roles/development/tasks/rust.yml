@@ -1,0 +1,17 @@
+---
+- name: Rust get
+  tags: dev, rust
+  git:
+    repo: https://github.com/rust-lang/rust.git
+    dest: ~/downloads/rust
+    force: yes
+
+- name: Rust compile
+  tags: dev, rust
+  shell: |
+    pushd ~/downloads/rust
+    ./configure
+    popd
+    sudo make -C ~/downloads/rust/ install
+  args: 
+    executable: /bin/bash
