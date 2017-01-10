@@ -3,18 +3,41 @@
   tags: dev, cmake
   get_url:
     url: https://cmake.org/files/v3.7/cmake-3.7.1-Linux-x86_64.sh
-    dest: /home/vagrant/downloads/cmake-3.7.1
+    dest: ~/downloads/cmake-3.7.1
+
+- name: CMake install script
+  tags: dev, cmake
+  template:
+    src: templates/cmake.installation.sh
+    dest: ~/downloads/.
+    mode: "u=rwx,g=r,o=r"
 
 - name: CMake latest install
   tags: dev, cmake
   become: true
-  shell: |
-    yes | /bin/bash /home/vagrant/downloads/cmake-3.7.1 --prefix=/opt --include-subdir
-    if [ ! -f /usr/bin/cmake ]; then
-      ln -f -s /opt/cmake-3.7.1-Linux-x86-84/bin/cmake /usr/bin/.
-      ln -f -s /opt/cmake-3.7.1-Linux-x86-84/bin/cpack /usr/bin/.
-      ln -f -s /opt/cmake-3.7.1-Linux-x86-84/bin/cmake-gui /usr/bin/.
-      ln -f -s /opt/cmake-3.7.1-Linux-x86-84/bin/ccmake /usr/bin/.
-      ln -f -s /opt/cmake-3.7.1-Linux-x86-84/bin/ctest /usr/bin/.
-    fi
+  shell: ./cmake.installation.sh warn=no
+  register: cmakeinstall
+  args:
+    chdir: /home/{{ ansible_user }}/downloads
+    executable: /bin/bash
+    creates: /usr/bin/cmake
 
+#- debug: msg="{{ cmakeinstall.stdout }}"
+#- debug: msg="{{ cmakeinstall.stderr }}"
+
+- name: Vim check for existance
+  tags: development, ide, editors
+  stat: path=~/.vimrc
+  register: vimrc
+
+- name: Vim include cmake/completion plugins
+  tags: dev, editors, ide, cmake
+  when: false and vimrc.stat.exists
+  lineinfile:
+    dest: ~/.vimrc
+    insertafter: '" ------ Plugins go here ------'
+    line: "{{ item }}"
+  with_items:
+    - "    Plugin 'pbettch/vim-cmake-syntax'"
+    - "    Plugin 'valloric/youcompleteme'"
+    - '    "   --- Development: completion/cmake dependencies ---   '
