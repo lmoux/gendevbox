@@ -1,0 +1,11 @@
+--- 
+- name: Vim check for existance
+  tags: development, ide, editors
+  stat: path=~/.vimrc
+  register: vimrc
+
+- name: Vim install Vundle plugins
+  tags: common, editors, ide
+  shell: vim +PluginInstall +qall
+  when: vimrc.stat.exists
+

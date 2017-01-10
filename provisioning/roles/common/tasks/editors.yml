@@ -7,19 +7,26 @@
     - vim-gtk
     - emacs
 
-- name: Install Vundle
+- name: Vim install Vundle plugin manager
   tags: common, editors
   git: 
       repo: https://github.com/VundleVim/Vundle.vim.git
       dest: ~/.vim/bundle/Vundle.vim
 
-- name: Copy vimrc
+- name: Vim copy vimrc
   tags: common, editors
   template:
     src: ../../common/templates/vimrc
     dest: ~/.vimrc
 
-- name: Install Vundle plugins
-  shell: vim +PluginInstall +qall
+- name: Emacs config directory
   tags: common, editors
+  file:
+    path: ~/.emacs.d
+    state: directory
 
+- name: Emacs copy config file
+  tags: common, editors
+  template:
+    src: ../../common/templates/emacs.el
+    dest: ~/.emacs.d/init.el
