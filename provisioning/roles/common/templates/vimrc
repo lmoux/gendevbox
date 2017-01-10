@@ -105,7 +105,6 @@ augroup configgroup
 augroup END
 
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe
-au FileType javascript call JavaScriptFold()
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 
