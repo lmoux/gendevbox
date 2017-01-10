@@ -13,5 +13,5 @@
 - name: VS Code install finalization
   tags: dev, vscode
   become: true
-  shell: apt-get install -f
+  shell: apt-get install -f warn=no
 
