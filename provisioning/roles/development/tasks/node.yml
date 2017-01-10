@@ -50,13 +50,16 @@
 - name: Vim include Javascript plugins
   tags: dev, javascript
   when: vimrcfile.stat.exists
-  blockinfile:
+  lineinfile:
     dest: ~/.vimrc
-    marker: '" ------ Plugins go here ------'
-    insertafter: '"   --- Javascript ---   '   
-    content: |
-      Plugin 'pangloss/vim-javascript'
-      Plugin 'mxw/vim-jsx'
-      Plugin 'leafgarland/typescript-vim'
-      Plugin 'Quramy/vim-js-pretty-template'
+    insertafter: '" ------ Plugins go here ------'
+    line: "{{ item }}"
+  with_items:
+    - "    Plugin 'Quramy/tsuquyomi'"
+    - "    Plugin 'leafgarland/typescript-vim'"
+    - '    "   --- Development: typescript ---   '
+    - "    Plugin 'pangloss/vim-javascript'"
+    - "    Plugin 'mxw/vim-jsx'"
+    - "    Plugin 'Quramy/vim-js-pretty-template'"
+    - '    "   --- Development: javascript ---   '
 
