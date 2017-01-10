@@ -21,11 +21,16 @@
     #- libxslt
     #- libxslt-dev
     - expect-dev
+    - libunwind8
 
+- include: ./go.yml
+- include: ./perl.yml
+- include: ./cmake.yml
+- include: ./rust.yml
 - include: ./python.yml
 - include: ./node.yml
 - include: ./erlang.yml
 - include: ./java.yml
 - include: ./vscode.yml
-- include: ./cmake.yml
-- include: ../../common/tasks/editors.yml
+- include: ./mono.yml
+- include: ./ide.yml
