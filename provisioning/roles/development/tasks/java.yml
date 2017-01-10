@@ -20,3 +20,21 @@
     - tomcat8-admin
     - tomcat8-examples
     - tomcat8-user
+    - scala
+
+- name: Vim check for existance
+  tags: development, ide, editors
+  stat: path=~/.vimrc
+  register: vimrc
+
+- name: Vim add .net goodies
+  tags: development, ide, editors
+  when: vimrc.stat.exists
+  lineinfile:
+    state: present
+    dest: ~/.vimrc
+    insertafter: "------ Plugins go here ------"
+    line: "{{ item }}"
+  with_items:
+    - "    Plugin 'derekwyatt/vim-scala'"
+    - "    Plugin 'artur-shaik/vim-javacomplete2'"
