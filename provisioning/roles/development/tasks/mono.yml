@@ -1,0 +1,71 @@
+---
+- name: Mono install
+  tags: dev, mono
+  become: true
+  apt: pkg=mono-complete state=present
+
+#- name: .NET core get from Microsoft
+#  tags: dev, .net
+#  get_url:
+#    url: https://go.microsoft.com/fwlink/?LinkID=83502
+#    dest: /home/{{ ansible_user }}/downloads/dotnet.tar.gz
+
+- name: .NET destination verification
+  tags: dev, .net
+  become: true
+  file:
+    path: /opt/dotnet
+    state: directory
+
+#- name: .NET core extract
+#  tags: dev, .net
+#  become: true
+#  unarchive:
+#    src: ../templates/dotnet.tar.gz
+#    dest: /opt/dotnet
+#    #src: /home/{{ ansible_user }}/downloads/dotnet.tar.gz 
+#    #remote_src: yes
+
+- name: .NET core extract
+  tags: dev, .net
+  become: true
+  file:
+    state: link
+    src: /opt/dotnet/dotnet
+    dest: /usr/local/bin/dotnet
+    force: yes
+
+- name: OmniSharpServer setup
+  tags: dev, .net, ide
+  become: true
+  shell: |
+    git clone https://github.com/OmniSharp/omnisharp-server.git
+    cd omnisharp-server
+    git submodule update --init --recursive
+    xbuild /p:Configuration=Release
+  args:
+    chdir: /opt
+
+- name: OmniSharpServer alias
+  tags: dev, .net, ide
+  lineinfile:
+    dest: /home/{{ ansible_user }}/.zshrc 
+    line: "alias startOmniSharp='mono /opt/omnisharp-server/OmniSharp/bin/Release/OmniSharp.exe'"
+
+- name: Vim check for existance
+  tags: development, ide, editors
+  stat: path=~/.vimrc
+  register: vimrc
+
+- name: Vim add .net goodies
+  tags: development, ide, editors
+  when: vimrc.stat.exists
+  lineinfile:
+    state: present
+    dest: ~/.vimrc
+    insertafter: "------ Plugins go here ------"
+    line: "{{ item }}"
+  with_items:
+    - "    Plugin 'OrangeT/vim-csharp.git'"
+    - "    let g:OmniSharp_selector_ui = 'ctrlp'"
+    - "    Plugin 'OmniSharp/omnisharp-vim'"
