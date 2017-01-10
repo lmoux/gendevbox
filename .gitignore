@@ -3,3 +3,4 @@ projects/
 *.retry
 *.swp
 .vagrant/
+provisioning/roles/development/templates/dotnet.tar.gz
