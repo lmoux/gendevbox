@@ -27,7 +27,7 @@
   stat: path=~/.vimrc
   register: vimrc
 
-- name: Vim add .net goodies
+- name: Vim add jvm/java goodies
   tags: development, ide, editors
   when: vimrc.stat.exists
   lineinfile:
