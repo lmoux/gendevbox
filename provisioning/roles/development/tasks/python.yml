@@ -22,3 +22,26 @@
     - idle3
     - python-pandas
     - python3-pandas
+
+- name: Vim check for existance
+  tags: development, ide, editors
+  stat: path=~/.vimrc
+  register: vimrc
+
+- name: Vim add python goodies
+  tags: development, ide, editors
+  when: vimrc.stat.exists
+  lineinfile:
+    state: present
+    dest: ~/.vimrc
+    insertafter: "------ Plugins go here ------"
+    line: "{{ item }}"
+  with_items:
+      - "    Plugin 'scrooloose/syntastic'"
+      - "    let python_highlight_all=2"
+      - "    Plugin 'nvie/vim-flake8'"
+      - "    Plugin 'vim-scripts/indentpython.vim'"
+      - "    \"     - Development: python: PEP8 identation -    "
+      - "    let g:SimpylFold_docstring_preview=1"
+      - "    Plugin 'tmhedberg/SimpylFold'"
+      - "   \"   --- Development: python ---  "
