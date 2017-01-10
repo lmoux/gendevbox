@@ -5,6 +5,7 @@
   tags: common
 
 - name: Downloads directory
+  tags: common
   file:
     path: downloads
     state: directory
@@ -18,10 +19,11 @@
     - wget
     - git # Strictly speaking for development, but we use it all over
     - gawk
+    - gettext
 
 - include: ./tmux.yml
 - include: ./zsh.yml
 - include: ./x11.yml
-#- include: ./editors.yml
+- include: ./editors.yml
 - include: ./firefox.yml # This is basically for Debian Jessie
 - include: ./math.yml
