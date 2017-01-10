@@ -5,3 +5,19 @@
   apt: pkg={{ item }} state=present
   with_items:
     - perl
+
+- name: Vim check for existance
+  tags: development, ide, editors
+  stat: path=~/.vimrc
+  register: vimrc
+
+- name: Vim add perl goodies
+  tags: development, ide, editors
+  when: vimrc.stat.exists
+  lineinfile:
+    state: present
+    dest: ~/.vimrc
+    insertafter: "------ Plugins go here ------"
+    line: "{{ item }}"
+  with_items:
+      - "    Plugin 'vim-perl/vim-perl'"
