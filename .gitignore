@@ -5,3 +5,4 @@ projects/
 *.swp
 .vagrant/
 provisioning/roles/development/templates/dotnet.tar.gz
+provisioning/roles/development/templates/node_setup_6.x
