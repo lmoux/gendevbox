@@ -39,3 +39,13 @@
     regexp: '^ZSH_THEME'
     line: 'ZSH_THEME="candy"'
   when: ohmyzshfolder.stat.exists
+  
+- name: Zsh more paths
+  tags: common, zsh
+  lineinfile:
+    dest: ~/.zshrc
+    line: "{{ item.line }}"
+  with_items:
+    - { line: 'export PATH="${PATH}:/usr/bin"' }
+  when: ohmyzshfolder.stat.exists
+
