@@ -1,0 +1,34 @@
+---
+- name: Go installation stats
+  tags: dev, go
+  stat: path=/usr/local/go
+  register: golang
+
+- name: Go download (1.7.4)
+  tags: dev, go
+  get_url:
+    url: https://storage.googleapis.com/golang/go1.7.4.linux-amd64.tar.gz
+    dest: ~/downloads/.
+  when: not golang.stat.exists
+
+- debug:
+    msg: "Go lang doesn't exist now"
+  when: not golang.stat.exists
+
+- name: Go install (1.7.4)
+  tags: dev, go
+  shell: |
+    sudo tar -C /usr/local -xzf ~/downloads/go1.7.4.linux-amd64.tar.gz
+  when: not golang.stat.exists
+
+- name: Go variables in profile
+  lineinfile:
+    dest: ~/.zshrc
+    #regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: 'export GOROOT', line: 'export GOROOT="/usr/lib/go"'}
+    - { regexp: 'export GOPATH', line: 'export GOPATH="${HOME}/.go:${GOROOT}"'}
+    - { regexp: 'export PATH.*go.*', line: 'export PATH="${PATH}:${HOME}/.go/bin:${GOROOT}/bin"'}
+  when: golang.stat.exists
+
