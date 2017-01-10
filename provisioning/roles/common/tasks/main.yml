@@ -1,8 +1,29 @@
 ---
+- name: Add contirb repository proper
+  become: true
+  apt_repository:
+    repo: deb http://httpredir.debian.org/debian jessie main contrib non-free
+    state: present
+
+- name: Add contirb repository sources
+  become: true
+  apt_repository:
+    repo: deb-src http://httpredir.debian.org/debian jessie main contrib non-free
+    state: present
+
 - name: Update apts cache
   become: true
   apt: update_cache=yes
   tags: common
+
+- name: Add source for virtualbox guest util/etc
+  become: true
+  tags: common
+  apt: pkg={{ item }} state=present
+  with_items:
+    - virtualbox-guest-dkms
+    - virtualbox-guest-utils
+    - virtualbox-guest-x11
 
 - name: Downloads directory
   tags: common
