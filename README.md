@@ -34,3 +34,14 @@ my new development projects.
  - golang
  - minimal perl and ruby settings
  - vim as IDE for many of these environments
+
+ # Manual steps
+In the interest of not uploading binaries to github, one needs to download 
+a few items and put them in specified places. All the following items
+are relative to `provisioning/roles`.
+
+| Location   |  File | Instructions |
+|---------- |------- |------- |
+| development/templates | dotnet.tar.gz   | Download [.NET Core](https://go.microsoft.com/fwlink/?LinkID=83502) |
+
+
