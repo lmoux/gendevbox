@@ -5,3 +5,8 @@
   apt: pkg={{ item }} state=present
   with_items:
     - ruby
+
+- name: Gem install Sass
+  gem:
+    name: sass
+    state: present
