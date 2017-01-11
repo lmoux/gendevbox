@@ -41,6 +41,17 @@
     - git # Strictly speaking for development, but we use it all over
     - gawk
     - gettext
+    - tree
+
+- name: More descriptive welcome screen
+  become: true
+  tags: common
+  template:
+    src: templates/motd
+    dest: /etc/motd
+    mode: "u=rw,g=r,o=r"
+    owner: root
+    group: root
 
 - include: ./tmux.yml
 - include: ./zsh.yml
