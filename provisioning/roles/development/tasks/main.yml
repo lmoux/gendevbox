@@ -22,11 +22,19 @@
     #- libxslt-dev
     - expect-dev
     - libunwind8
+    # LMD> The following are useful for debugging
+    - inotify-tools
+    - iotop
+    - htop
+    - iptraf 
+    # LMD> Need a way to configure wireshark's installation
+    #- wireshark
 
 - include: ./go.yml
 - include: ./perl.yml
 - include: ./cmake.yml
 - include: ./rust.yml
+- include: ./ruby.yml
 - include: ./python.yml
 - include: ./node.yml
 - include: ./erlang.yml
