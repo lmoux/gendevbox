@@ -17,14 +17,14 @@
     path: /opt/dotnet
     state: directory
 
-#- name: .NET core extract
-#  tags: dev, .net
-#  become: true
-#  unarchive:
-#    src: ../templates/dotnet.tar.gz
-#    dest: /opt/dotnet
-#    #src: /home/{{ ansible_user }}/downloads/dotnet.tar.gz 
-#    #remote_src: yes
+- name: .NET core extract
+  tags: dev, .net
+  become: true
+  unarchive:
+    src: ../templates/dotnet.tar.gz
+    dest: /opt/dotnet
+    #src: /home/{{ ansible_user }}/downloads/dotnet.tar.gz 
+    #remote_src: yes
 
 - name: .NET core extract
   tags: dev, .net
