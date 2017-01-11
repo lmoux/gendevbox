@@ -27,7 +27,6 @@ call vundle#begin()
     "   --- General ---
     Plugin 'godlygeek/tabular'
     Plugin 'Lokaltog/vim-powerline'
-    set laststatus=2   " Always show the statusline
     set encoding=utf-8 " Necessary to show unicode glyphs
     set t_Co=256 " Terminal colors
 
@@ -49,8 +48,8 @@ call vundle#begin()
 call vundle#end()
 
 
-set laststatus=2
-set backspace=2
+set laststatus=2   " Always show the statusline
+set backspace=2 " makes backspace work like most other apps
 set nobackup
 set nowritebackup
 set title
