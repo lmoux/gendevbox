@@ -19,14 +19,27 @@
     src: ../../common/templates/vimrc
     dest: ~/.vimrc
 
-- name: Emacs config directory
+- name: Emacs config and org-mode folder
   tags: common, editors
   file:
-    path: ~/.emacs.d
+    path: "~/{{ item }}"
     state: directory
+  with_items:
+    - org
+    - .emacs.d
 
-- name: Emacs copy config file
+- name: Emacs config directory
   tags: common, editors
-  template:
-    src: ../../common/templates/emacs.el
-    dest: ~/.emacs.d/init.el
+  copy:
+    src: "{{ role_path }}/templates/emacs.d/"
+    dest: ~/.emacs.d/
+
+- name: Emacs org-mode agendas
+  file:
+    path: "~/org/{{ item }}.org"
+    state: touch
+  with_items:
+    - personal
+    - home
+    - projects
+
