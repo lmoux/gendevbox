@@ -45,6 +45,10 @@
     - node-gyp
     - browserify
     - generator-aspnet
+    - http-server
+    - light-server
+    - minimatch
+    - dtsm
 
 - name: Clone Angular2 quickstart
   tags: dev, javascript, nodepacks
@@ -64,10 +68,32 @@
     insertafter: '" ------ Plugins go here ------'
     line: "{{ item }}"
   with_items:
+    - '    map <leader>l :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=1"<CR>'
+    - '    let g:javascript_conceal_function             = "ƒ"'
+    - '    let g:javascript_conceal_null                 = "ø"'
+    - '    let g:javascript_conceal_this                 = "@"'
+    - '    let g:javascript_conceal_return               = "⇚"'
+    - '    let g:javascript_conceal_undefined            = "¿"'
+    - '    let g:javascript_conceal_NaN                  = "ℕ"'
+    - '    let g:javascript_conceal_prototype            = "¶"'
+    - '    let g:javascript_conceal_static               = "•"'
+    - '    let g:javascript_conceal_super                = "Ω"'
+    - '    let g:javascript_conceal_arrow_function       = "⇒"'
+    - '    let g:javascript_conceal_noarg_arrow_function = "🞅"'
+    - '    let g:javascript_conceal_underscore_arrow_function = "🞅"'
+    - "    Plugin 'pangloss/vim-javascript'"
+
+    - "    set ballooneval"
+    - "    autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr();"
+    - "    autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>"
+    - "    autocmd FileType typescript setlocal completeopt+=menu,preview"
     - "    Plugin 'Quramy/tsuquyomi'"
+    - "    Plugin 'vvakame/dtsm'"
+    - "    Plugin 'mhartington/vim-typings'"
+    - "    Plugin 'Quramy/ng-tsserver'"
     - "    Plugin 'leafgarland/typescript-vim'"
     - '    "   --- Development: typescript ---   '
-    - "    Plugin 'pangloss/vim-javascript'"
+    - "    Plugin 'jason0x43/vim-js-indent'"
     - "    Plugin 'mxw/vim-jsx'"
     - "    Plugin 'Quramy/vim-js-pretty-template'"
     - '    "   --- Development: javascript ---   '
