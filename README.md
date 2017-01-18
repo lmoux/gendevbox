@@ -44,4 +44,5 @@ are relative to `provisioning/roles`.
 |---------- |------- |------- |
 | development/templates | dotnet.tar.gz   | Download [.NET Core](https://go.microsoft.com/fwlink/?LinkID=83502) |
 
+One also needs to run the following from vim `:VimProcInstall`.
 
