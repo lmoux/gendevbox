@@ -57,8 +57,9 @@ set viminfo='1000,n~/.vim/_viminfo'
 set showcmd
 
 syntax enable                 " enable syntax processing
-set tabstop=4                 " number of visual spaces per TAB
-set softtabstop=4             " number of spaces in tab when editingo
+set tabstop=2                 " number of visual spaces per TAB
+set softtabstop=2             " number of spaces in tab when editing
+set smarttab
 filetype plugin indent on     " load file-type specific indentetion settings
 set number                    " show line numbers
 set cursorline
