@@ -1,0 +1,6 @@
+---
+- name: Git config
+  tags: dev, git
+  template: 
+      src: templates/gitconfig
+      dest: ~/.gitconfig
