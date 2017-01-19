@@ -30,6 +30,7 @@
     # LMD> Need a way to configure wireshark's installation
     #- wireshark
 
+- include: ./git.yml
 - include: ./go.yml
 - include: ./perl.yml
 - include: ./cmake.yml
