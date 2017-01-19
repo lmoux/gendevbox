@@ -1,5 +1,4 @@
 set nocompatible             " don't bother about vi compatibility, full vim
-filetype off
 
 set background=dark
 colorscheme koehler
@@ -19,6 +18,7 @@ call vundle#begin()
     let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
     
     Plugin 'tpope/vim-fugitive'
+    Plugin 'airblade/vim-gitgutter'
     Plugin 'kien/ctrlp.vim'
     Plugin 'tpope/vim-dispatch'
     Plugin 'tpope/vim-eunuch'
@@ -40,6 +40,9 @@ call vundle#begin()
     Plugin 'Shougo/vimproc.vim'
     Plugin 'Shougo/unite.vim'
 
+    Plugin 'tpope/vim-ragtag'
+    Plugin 'tmux-plugins/vim-tmux'
+
     "   --- Snippets ---
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets'
@@ -60,6 +63,8 @@ syntax enable                 " enable syntax processing
 set tabstop=2                 " number of visual spaces per TAB
 set softtabstop=2             " number of spaces in tab when editing
 set smarttab
+set shiftwidth=2							" More compact indentation by default  
+filetype on										" Vundle previously required this to be off, but new versions of vim take care of it
 filetype plugin indent on     " load file-type specific indentetion settings
 set number                    " show line numbers
 set cursorline
@@ -102,6 +107,10 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd FileType *.js setlocal shiftwidth=2
+    autocmd BufRead,BufNewFile glances.conf setf dosini
+    autocmd BufNewFile,BufRead {.,}tmux*.conf set ft=tmux | compiler tmux
+		autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+		autocmd FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
 augroup END
 
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe
