@@ -9,3 +9,10 @@
   template:
     src: templates/tmux.conf
     dest: ~/.tmux.conf
+
+- name: Tmux TPM install
+  tags: commmon, tmux
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+
