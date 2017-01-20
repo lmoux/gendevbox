@@ -29,6 +29,7 @@
     - iptraf 
     # LMD> Need a way to configure wireshark's installation
     #- wireshark
+    - shellcheck
 
 - include: ./git.yml
 - include: ./go.yml
