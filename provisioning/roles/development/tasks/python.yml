@@ -22,6 +22,8 @@
     - idle3
     - python-pandas
     - python3-pandas
+    - python-dateutil
+    - python3-dateutil
 
 - name: Vim check for existance
   tags: development, ide, editors
