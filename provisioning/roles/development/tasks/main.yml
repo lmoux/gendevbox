@@ -30,6 +30,7 @@
     # LMD> Need a way to configure wireshark's installation
     #- wireshark
     - shellcheck
+    - git-extras
 
 - include: ./git.yml
 - include: ./go.yml
